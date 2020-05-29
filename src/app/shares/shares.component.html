@@ -1,1 +1,6 @@
-<p>shares works!</p>
+<div>Symbols</div   >
+<ul>
+    <li *ngFor="let share of shares" [class.selected]="share === selectedShare" (click)="onSelect(share)">
+        {{share}}
+    </li>
+</ul>
