@@ -4,7 +4,7 @@ import { SharesService } from './shares.service';
 @Component({
   selector: 'app-shares',
   templateUrl: './shares.component.html',
-  providers: [ SharesService ],
+  providers: [],
   styleUrls: ['./shares.component.less']
 })
 export class SharesComponent implements OnInit {
@@ -15,11 +15,16 @@ export class SharesComponent implements OnInit {
   constructor(private sharesService: SharesService) { }
 
   ngOnInit(): void {
-    this.sharesService.listShares().subscribe((shares: Array<string>) => this.shares = shares);
+    this.sharesService.listShares()
+    .subscribe((shares: Array<string>) => {
+      this.shares = shares;
+      this.onSelect(shares[0]);
+    });
   }
 
   onSelect(share: string) {
     this.selectedShare = share;
+    this.sharesService.changeSelectedShare(share);
   }
 
 }
