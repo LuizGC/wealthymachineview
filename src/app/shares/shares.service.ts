@@ -7,6 +7,6 @@ export class SharesService {
   constructor(private http: HttpClient) { }
 
   listShares() {
-    return this.http.get<Array<String>>("shareCodes");
+    return this.http.get<Array<string>>('shareCodes');
   }
 }

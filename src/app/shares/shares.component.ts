@@ -9,16 +9,16 @@ import { SharesService } from './shares.service';
 })
 export class SharesComponent implements OnInit {
 
-  shares: Array<String>;
-  selectedShare: String;
+  shares: Array<string>;
+  selectedShare: string;
 
   constructor(private sharesService: SharesService) { }
 
   ngOnInit(): void {
-    this.sharesService.listShares().subscribe((shares: Array<String>) => this.shares = shares);
+    this.sharesService.listShares().subscribe((shares: Array<string>) => this.shares = shares);
   }
 
-  onSelect(share: String) {
+  onSelect(share: string) {
     this.selectedShare = share;
   }
 
