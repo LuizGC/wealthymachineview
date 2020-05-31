@@ -29,7 +29,7 @@ export class ChartsService {
               low: parseFloat(quote.low),
               value: parseFloat(quote.value),
               time: `${yyyy}-${mm}-${dd}`,
-              color: parseFloat(quote.open) > parseFloat(quote.close) ? 'rgba(0, 150, 136, 0.8)' : 'rgba(255,82,82, 0.8)'
+              color: parseFloat(quote.open) > parseFloat(quote.close) ? 'rgba(255,82,82, 0.8)' : 'rgba(0, 150, 136, 0.8)'
             };
           });
         })

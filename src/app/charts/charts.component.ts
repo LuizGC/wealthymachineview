@@ -39,9 +39,14 @@ export class ChartsComponent implements OnInit {
         .subscribe((data: Quote[]) => {
           this.candleSeries.setData(data);
           this.volumeSeries.setData(data);
-          this.chart.timeScale().fitContent();
+          const length = data.length;
+          this.chart
+        .timeScale()
+          .setVisibleRange({
+            from: data[length - 71 || 0].time,
+            to: data[length- 1].time
+          });
         });
     }
   }
-
 }
