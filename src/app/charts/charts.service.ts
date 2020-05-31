@@ -18,18 +18,20 @@ export class ChartsService {
       .pipe<any[]>(
         map((quotes) => {
           return quotes.map(quote => {
-            const d = new Date(quote.time);
+            const d = new Date(quote.tradingDay);
             const yyyy = new Intl.DateTimeFormat('en', { year: 'numeric' }).format(d);
             const mm = new Intl.DateTimeFormat('en', { month: '2-digit' }).format(d);
             const dd = new Intl.DateTimeFormat('en', { day: '2-digit' }).format(d);
+            const open = parseFloat(quote.openPrice);
+            const close = parseFloat(quote.closePrice);
             return {
-              open: parseFloat(quote.open),
-              close: parseFloat(quote.close),
-              high: parseFloat(quote.high),
-              low: parseFloat(quote.low),
-              value: parseFloat(quote.value),
+              open,
+              close,
+              high: parseFloat(quote.highPrice),
+              low: parseFloat(quote.lowPrice),
+              value: parseFloat(quote.volume),
               time: `${yyyy}-${mm}-${dd}`,
-              color: parseFloat(quote.open) > parseFloat(quote.close) ? 'rgba(255,82,82, 0.8)' : 'rgba(0, 150, 136, 0.8)'
+              color: open > close ? 'rgba(255,82,82, 0.8)' : 'rgba(0, 150, 136, 0.8)'
             };
           });
         })
