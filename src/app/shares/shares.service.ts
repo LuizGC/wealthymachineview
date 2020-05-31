@@ -17,12 +17,10 @@ export class SharesService {
   }
 
   changeSelectedShare(newShare: string) {
-    console.log(this.date);
     this.dataSource.next(newShare);
   }
 
   subscribeSelectedShare(actionFunction: (data: string) => void) {
-    console.log(this.date);
     this.dataSource.subscribe(actionFunction);
   }
 }
