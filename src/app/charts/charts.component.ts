@@ -44,7 +44,7 @@ export class ChartsComponent implements OnInit {
         .timeScale()
           .setVisibleRange({
             from: data[length - 71 || 0].time,
-            to: data[length- 1].time
+            to: data[length - 1].time
           });
         });
     }
