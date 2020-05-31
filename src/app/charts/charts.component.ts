@@ -15,7 +15,11 @@ export class ChartsComponent implements OnInit {
   constructor(private sharesService: SharesService) { }
 
   ngOnInit(): void {
-    this.sharesService.subscribeSelectedShare((share) => this.selectedShare = share);
+    this.sharesService.subscribeSelectedShare((share: string) => this.updateSelectedShare(share));
+  }
+
+  updateSelectedShare(share: string): void {
+    this.selectedShare = share;
   }
 
 }
