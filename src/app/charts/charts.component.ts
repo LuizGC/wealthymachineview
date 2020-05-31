@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { SharesService } from '../shares/shares.service';
-
+import { ChartsService } from './charts.service';
+import { Quote } from './quote';
 
 @Component({
   selector: 'app-charts',
@@ -11,8 +12,14 @@ import { SharesService } from '../shares/shares.service';
 export class ChartsComponent implements OnInit {
 
   selectedShare: string;
+  chart: any;
+  candleSeries: any;
+  volumeSeries: any;
 
-  constructor(private sharesService: SharesService) { }
+  @ViewChild('frame')
+  frame: ElementRef;
+
+  constructor(private sharesService: SharesService, private chartsService: ChartsService) { }
 
   ngOnInit(): void {
     this.sharesService.subscribeSelectedShare((share: string) => this.updateSelectedShare(share));
@@ -20,6 +27,21 @@ export class ChartsComponent implements OnInit {
 
   updateSelectedShare(share: string): void {
     this.selectedShare = share;
+    if (this.frame) {
+      if (!this.chart) {
+        const height = this.frame.nativeElement.offsetHeight - 40;
+        const width = this.frame.nativeElement.offsetWidth;
+        this.chart = this.chartsService.createChart(this.frame, width, height);
+        this.candleSeries = this.chartsService.addCandlestickSeries(this.chart);
+        this.volumeSeries = this.chartsService.addHistogramSeries(this.chart);
+      }
+      this.chartsService.listQuotes(this.selectedShare)
+        .subscribe((data: Quote[]) => {
+          this.candleSeries.setData(data);
+          this.volumeSeries.setData(data);
+          this.chart.timeScale().fitContent();
+        });
+    }
   }
 
 }

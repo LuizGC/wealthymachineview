@@ -8,7 +8,6 @@ import { BehaviorSubject } from 'rxjs';
 export class SharesService {
 
   private dataSource = new BehaviorSubject<string>('');
-  private date = Math.random();
 
   constructor(private http: HttpClient) { }
 
